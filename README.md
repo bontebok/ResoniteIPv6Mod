@@ -1,9 +1,9 @@
 # ResoniteIPv6Mod
 [Japanese Translation](https://github.com/bontebok/ResoniteIPv6Mod/blob/main/READMEjp.md) | [Korean Translation](https://github.com/bontebok/ResoniteIPv6Mod/blob/main/READMEkr.md) | [French Translation](https://github.com/bontebok/ResoniteIPv6Mod/blob/main/READMEfr.md)
 
-A [ResoniteModLoader](https://github.com/zkxs/ResoniteModLoader) mod for [Resonite](https://resonite.com/) to provide transparent IPv6 connectivity for sessions. The mod utilizes a third party IPv6 LNL Server to facilitate IPv6 UDP punch throughs. The mod should be transparent for all users and falls back to IPv4 after attempting an IPv6 punch through.
+A [ResoniteModLoader](https://github.com/bontebok/ResoniteModLoader) mod for [Resonite](https://resonite.com/) to provide transparent IPv6 connectivity for sessions. The mod utilizes a third party IPv6 LNL Server to facilitate IPv6 UDP punch throughs. The mod should be transparent for all users and falls back to IPv4 after attempting an IPv6 punch through.
 
-The ResoniteIPv6Mod includes three settings which utilize the [ModSettings](https://github.com/badhaloninja/ResoniteModSettings) mod to allow them to be changed. The settings apply immediately but do not affect any current session connections, only those established through the punch through process.
+The ResoniteIPv6Mod includes three settings which utilize the [ModSettings](https://github.com/stiefeljackal/ResoniteModSettings) mod to allow them to be changed. The settings apply immediately but do not affect any current session connections, only those established through the punch through process.
 
 In order for Resonite to use IPv6, both parties (host and client) need to have an IPv6 IP Address and have the mod installed. Without IPv6, this mod will not function correctly. If you are having trouble, first verify that you have an IPv6 IP Address, the following site will provide verification. [Test-IPv6.com](https://test-ipv6.com/). If you do not have an IPv6 IP Address, contact your Internet Service Provider for assistance.
 
@@ -12,7 +12,7 @@ ResoniteIPv6Mod works on Windows and Linux clients, as well as Windows and Linux
 
 ## Installation
 
-1. Install [ResoniteModLoader](https://github.com/zkxs/ResoniteModLoader).
+1. Install [ResoniteModLoader](https://github.com/bontebok/ResoniteModLoader).
 1. Place [ResoniteIPv6Mod.dll](https://github.com/bontebok/ResoniteIPv6Mod/releases) into your `rml_mods` folder. This folder should be at `C:\Program Files (x86)\Steam\steamapps\common\ResoniteVR\rml_mods` for a default install. You can create it if it's missing, or if you launch the game once with ResoniteModLoader installed it will create the folder for you.
 1. Start the game. If you want to verify that the mod is working you can check your Resonite logs.
 
