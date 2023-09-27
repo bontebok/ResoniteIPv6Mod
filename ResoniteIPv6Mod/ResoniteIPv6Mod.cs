@@ -24,7 +24,7 @@ namespace ResoniteIPv6Mod
     {
         public const string Name = "ResoniteIPv6Mod";
         public const string Author = "Rucio";
-        public const string Version = "1.0.0";
+        public const string Version = "2.0.0";
         public const string Link = "https://github.com/bontebok/ResoniteIPv6Mod";
         public const string GUID = "com.ruciomods.resoniteipv6mod";
     }
@@ -52,7 +52,6 @@ namespace ResoniteIPv6Mod
             {
                 Config = GetConfiguration();
                 Harmony harmony = new Harmony(BuildInfo.GUID);
-                //Harmony.DEBUG = true;
                 harmony.PatchAll();
             }
             catch (Exception ex)
