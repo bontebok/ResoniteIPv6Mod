@@ -209,7 +209,7 @@ namespace ResoniteIPv6Mod
                             await Task.Delay(TimeSpan.FromSeconds(1.0));
 
                             if (Peer.GetValue(__instance) != null || !client.IsRunning)
-                                return; // Connected??
+                                return true; // Connected??
                         }
                         if (ipv6only)
                         {
@@ -233,7 +233,7 @@ namespace ResoniteIPv6Mod
                                 if (Peer.GetValue(__instance) != null || !client.IsRunning)
                                 {
                                     nodes = null;
-                                    return; // Connected???
+                                    return true; // Connected???
                                 }
                             }
                         }
@@ -250,7 +250,7 @@ namespace ResoniteIPv6Mod
                         FailReason.SetValue(__instance, "World.Error.FailedToConnect");
                         ConnectionFailed?.Invoke(__instance);
                     }
-                    return;
+                    return false;
 
                 });
                 return false;
