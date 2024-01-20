@@ -195,7 +195,7 @@ namespace ResoniteIPv6Mod
                     }
                     else
                     {
-                        foreach (NetworkNodeInfo node in cloud.NetworkNodes.GetNodes(NetworkNodeType.LNL_NAT))
+                        foreach (NetworkNodeInfo node in cloud.NetworkNodes.GetNodes(NetworkNodeType.LNL_NAT, 0))
                             nodes.Add(node);
                     }
 
@@ -242,7 +242,8 @@ namespace ResoniteIPv6Mod
                     {
                         statusCallback("World.Connection.LNL.Relay".AsLocaleKey(null, true, null));
                         Msg("IPv4 Punchthrough failed, Connecting to Relay");
-                        AccessTools.MethodDelegate<Action>(ConnectToRelay, __instance).Invoke();
+                        //AccessTools.MethodDelegate<Action>(ConnectToRelay, __instance).Invoke();
+                        ConnectToRelay.Invoke(__instance, new object[]{});
                     }
                     else
                     {
