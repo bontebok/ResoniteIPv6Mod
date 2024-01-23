@@ -59,41 +59,7 @@ namespace ResoniteIPv6Mod
                 Error(ex);
             }
         }
-        /*
-                [HarmonyPatch(typeof(NatPunchModule))]
-                public class NatPunchModulePatch
-                {
 
-                    private static readonly Type NatIntroduceRequestPacketType = AccessTools.Inner(typeof(NatPunchModule), "NatIntroduceRequestPacket");
-                    private static readonly PropertyInfo LocalPort = AccessTools.Property(typeof(NetManager), "LocalPort");
-                    private static readonly PropertyInfo NIRPInternal = NatIntroduceRequestPacketType.GetProperty("Internal");
-                    private static readonly PropertyInfo NIRPToken = NatIntroduceRequestPacketType.GetProperty("Token");
-                    private static readonly MethodInfo SendDelegate = AccessTools.Method(typeof(NatPunchModule), "Send").MakeGenericMethod(NatIntroduceRequestPacketType);
-
-
-                                [HarmonyPrefix]
-                                [HarmonyPatch("SendNatIntroduceRequest", new Type[] { typeof(IPEndPoint), typeof(string) })]
-                                public static bool SendNatIntroduceRequest(NatPunchModule __instance, IPEndPoint masterServerEndPoint, string additionalInfo,
-                                    object ____socket)
-                                {
-                                    var NatIntroduceRequestPacket = AccessTools.CreateInstance(NatIntroduceRequestPacketType);
-                                    int port = (int)LocalPort.GetValue(____socket);
-                                    string networkIp = LiteNetLib.NetUtils.GetLocalIp(LocalAddrType.IPv4);
-
-                                    if (string.IsNullOrEmpty(networkIp) || masterServerEndPoint.AddressFamily == AddressFamily.InterNetworkV6)
-                                    {
-                                        networkIp = LiteNetLib.NetUtils.GetLocalIp(LocalAddrType.IPv6);
-                                    }
-
-                                    NIRPInternal.SetValue(NatIntroduceRequestPacket, LiteNetLib.NetUtils.MakeEndPoint(networkIp, port));
-                                    NIRPToken.SetValue(NatIntroduceRequestPacket, additionalInfo);
-
-                                    SendDelegate.Invoke(__instance, new[] { NatIntroduceRequestPacket, masterServerEndPoint });
-
-                                    return false;
-                                }
-                            }
-                    */
         [HarmonyPatch(typeof(NetManager))]
         public class NetManagerPatch
         {
@@ -168,8 +134,6 @@ namespace ResoniteIPv6Mod
             private static readonly PropertyInfo FailReason = AccessTools.Property(typeof(LNL_Connection), "FailReason");
             private static readonly MethodInfo ConnectToRelay = AccessTools.Method(typeof(LNL_Connection), "ConnectToRelay");
             private static bool? ForceRelay;
-
-            //private DateTimeOffset = new DateTimeOffset();
 
             [HarmonyPrefix]
             [HarmonyPatch(typeof(LNL_Connection), "PunchthroughConnect")]
