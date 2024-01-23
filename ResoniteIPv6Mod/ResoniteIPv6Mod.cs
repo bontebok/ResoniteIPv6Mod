@@ -24,7 +24,7 @@ namespace ResoniteIPv6Mod
     {
         public const string Name = "ResoniteIPv6Mod";
         public const string Author = "Rucio";
-        public const string Version = "2.0.0";
+        public const string Version = "3.1.0";
         public const string Link = "https://github.com/bontebok/ResoniteIPv6Mod";
         public const string GUID = "com.ruciomods.resoniteipv6mod";
     }
@@ -59,37 +59,55 @@ namespace ResoniteIPv6Mod
                 Error(ex);
             }
         }
-
-        [HarmonyPatch(typeof(NatPunchModule))]
-        public class NatPunchModulePatch
-        {
-
-            private static readonly Type NatIntroduceRequestPacketType = AccessTools.Inner(typeof(NatPunchModule), "NatIntroduceRequestPacket");
-            private static readonly PropertyInfo LocalPort = AccessTools.Property(typeof(NetManager), "LocalPort");
-            private static readonly PropertyInfo NIRPInternal = NatIntroduceRequestPacketType.GetProperty("Internal");
-            private static readonly PropertyInfo NIRPToken = NatIntroduceRequestPacketType.GetProperty("Token");
-            private static readonly MethodInfo SendDelegate = AccessTools.Method(typeof(NatPunchModule), "Send").MakeGenericMethod(NatIntroduceRequestPacketType);
-
-            [HarmonyPrefix]
-            [HarmonyPatch("SendNatIntroduceRequest", new Type[] { typeof(IPEndPoint), typeof(string) })]
-            public static bool SendNatIntroduceRequest(NatPunchModule __instance, IPEndPoint masterServerEndPoint, string additionalInfo,
-                object ____socket)
-            {
-                var NatIntroduceRequestPacket = AccessTools.CreateInstance(NatIntroduceRequestPacketType);
-                int port = (int)LocalPort.GetValue(____socket);
-                string networkIp = LiteNetLib.NetUtils.GetLocalIp(LocalAddrType.IPv4);
-
-                if (string.IsNullOrEmpty(networkIp) || masterServerEndPoint.AddressFamily == AddressFamily.InterNetworkV6)
+        /*
+                [HarmonyPatch(typeof(NatPunchModule))]
+                public class NatPunchModulePatch
                 {
-                    networkIp = LiteNetLib.NetUtils.GetLocalIp(LocalAddrType.IPv6);
-                }
 
-                NIRPInternal.SetValue(NatIntroduceRequestPacket, LiteNetLib.NetUtils.MakeEndPoint(networkIp, port));
-                NIRPToken.SetValue(NatIntroduceRequestPacket, additionalInfo);
+                    private static readonly Type NatIntroduceRequestPacketType = AccessTools.Inner(typeof(NatPunchModule), "NatIntroduceRequestPacket");
+                    private static readonly PropertyInfo LocalPort = AccessTools.Property(typeof(NetManager), "LocalPort");
+                    private static readonly PropertyInfo NIRPInternal = NatIntroduceRequestPacketType.GetProperty("Internal");
+                    private static readonly PropertyInfo NIRPToken = NatIntroduceRequestPacketType.GetProperty("Token");
+                    private static readonly MethodInfo SendDelegate = AccessTools.Method(typeof(NatPunchModule), "Send").MakeGenericMethod(NatIntroduceRequestPacketType);
 
-                SendDelegate.Invoke(__instance, new[] { NatIntroduceRequestPacket, masterServerEndPoint });
 
-                return false;
+                                [HarmonyPrefix]
+                                [HarmonyPatch("SendNatIntroduceRequest", new Type[] { typeof(IPEndPoint), typeof(string) })]
+                                public static bool SendNatIntroduceRequest(NatPunchModule __instance, IPEndPoint masterServerEndPoint, string additionalInfo,
+                                    object ____socket)
+                                {
+                                    var NatIntroduceRequestPacket = AccessTools.CreateInstance(NatIntroduceRequestPacketType);
+                                    int port = (int)LocalPort.GetValue(____socket);
+                                    string networkIp = LiteNetLib.NetUtils.GetLocalIp(LocalAddrType.IPv4);
+
+                                    if (string.IsNullOrEmpty(networkIp) || masterServerEndPoint.AddressFamily == AddressFamily.InterNetworkV6)
+                                    {
+                                        networkIp = LiteNetLib.NetUtils.GetLocalIp(LocalAddrType.IPv6);
+                                    }
+
+                                    NIRPInternal.SetValue(NatIntroduceRequestPacket, LiteNetLib.NetUtils.MakeEndPoint(networkIp, port));
+                                    NIRPToken.SetValue(NatIntroduceRequestPacket, additionalInfo);
+
+                                    SendDelegate.Invoke(__instance, new[] { NatIntroduceRequestPacket, masterServerEndPoint });
+
+                                    return false;
+                                }
+                            }
+                    */
+        [HarmonyPatch(typeof(NetManager))]
+        public class NetManagerPatch
+        {
+            [HarmonyPrefix]
+            [HarmonyPatch("Start", new Type[] { typeof(IPAddress), typeof(IPAddress), typeof(int), typeof(bool) })]
+            public static bool Start(ref bool ___UseNativeSockets)
+            {
+                bool disablemod = Config.GetValue(DISABLEMOD);
+                if (disablemod)
+                    return true;
+
+                Msg($"Disabling LNL NativeSockets due to IPv6 compatibility issue.");
+                ___UseNativeSockets = false;
+                return true;
             }
         }
 
@@ -150,6 +168,8 @@ namespace ResoniteIPv6Mod
             private static readonly PropertyInfo FailReason = AccessTools.Property(typeof(LNL_Connection), "FailReason");
             private static readonly MethodInfo ConnectToRelay = AccessTools.Method(typeof(LNL_Connection), "ConnectToRelay");
             private static bool? ForceRelay;
+
+            //private DateTimeOffset = new DateTimeOffset();
 
             [HarmonyPrefix]
             [HarmonyPatch(typeof(LNL_Connection), "PunchthroughConnect")]
@@ -243,7 +263,7 @@ namespace ResoniteIPv6Mod
                         statusCallback("World.Connection.LNL.Relay".AsLocaleKey(null, true, null));
                         Msg("IPv4 Punchthrough failed, Connecting to Relay");
                         //AccessTools.MethodDelegate<Action>(ConnectToRelay, __instance).Invoke();
-                        ConnectToRelay.Invoke(__instance, new object[]{});
+                        ConnectToRelay.Invoke(__instance, new object[] { });
                     }
                     else
                     {
