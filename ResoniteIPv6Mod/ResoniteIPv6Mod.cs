@@ -24,7 +24,7 @@ namespace ResoniteIPv6Mod
     {
         public const string Name = "ResoniteIPv6Mod";
         public const string Author = "Rucio";
-        public const string Version = "3.1.0";
+        public const string Version = "3.1.1";
         public const string Link = "https://github.com/bontebok/ResoniteIPv6Mod";
         public const string GUID = "com.ruciomods.resoniteipv6mod";
     }
