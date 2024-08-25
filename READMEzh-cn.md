@@ -3,7 +3,7 @@
 
 ResoniteIPv6Mod包括三个设置，可通过[ModSettings](https://github.com/stiefeljackal/ResoniteModSettings)对模组进行更改。这些设置会立即生效，但不会影响任何当前会话连接，只会影响那些通过打通过程建立中的连接。
 
-为了让Resonite使用IPv6，双方（主机和客户端）都需要拥有IPv6 IP地址并安装该模组。如果没有IPv6，该模组将无法正常运行。如果你遇到问题，请首先验证您是否拥有 IPv6 IP 地址，可以通过以下网站验证。[Test-IPv6.com](https://test-ipv6.com/). 如果你没有IPv6 IP地址，请联系你的互联网服务提供商寻求帮助。
+为了让Resonite使用IPv6，双方（主机和客户端）都需要拥有IPv6 IP地址并安装该模组。如果没有IPv6，该模组将无法正常运行。如果你遇到问题，请首先验证您是否拥有 IPv6 IP 地址，可以通过以下网站验证。[Test-IPv6.com](https://test-ipv6.com/)。 如果你没有IPv6 IP地址，请联系你的互联网服务提供商寻求帮助。
 
 在Windows和Linux客户端上可以用，也同样适用于Windows和Linux服务器客户端。
 
