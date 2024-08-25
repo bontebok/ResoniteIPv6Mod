@@ -3,14 +3,14 @@
 
 ResoniteIPv6Mod包括三个设置，可通过[ModSettings](https://github.com/stiefeljackal/ResoniteModSettings)对模组进行更改。这些设置会立即生效，但不会影响任何当前会话连接，只会影响那些通过打通过程建立中的连接。
 
-为了让Resonite使用 IPv6，双方（主机和客户端）都需要拥有 IPv6 IP 地址并安装该模块。如果没有 IPv6，该模组将无法正常运行。如果你遇到问题，请首先验证您是否拥有 IPv6 IP 地址，可以通过以下网站验证。[Test-IPv6.com](https://test-ipv6.com/). 如果你没有 IPv6 IP 地址，请联系你的互联网服务提供商寻求帮助。
+为了让Resonite使用 IPv6，双方（主机和客户端）都需要拥有IPv6 IP地址并安装该模组。如果没有 IPv6，该模组将无法正常运行。如果你遇到问题，请首先验证您是否拥有 IPv6 IP 地址，可以通过以下网站验证。[Test-IPv6.com](https://test-ipv6.com/). 如果你没有IPv6 IP地址，请联系你的互联网服务提供商寻求帮助。
 
 在Windows和Linux客户端上可以用，也同样适用于Windows和Linux服务器客户端。
 
 
 ## 安装步骤
 
-1. 安装 [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader/releases).
+1. 安装 [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader/releases)。
 1. 将 [ResoniteIPv6Mod.dll](https://github.com/bontebok/ResoniteIPv6Mod/releases) 放入你的`rml_mods`文件夹。默认安装时，该文件夹位于`C:\Program Files (x86)\Steam\steamapps\common\ResoniteVR\rml_mods`中。如果缺少该文件夹，你可以创建它，或者如果你安装了ResoniteModLoader后启动游戏，它会为你创建该文件夹。
 1. 启动游戏。如果想确认这个模组是否生效，你可以查看Resonite日志。
 
@@ -24,7 +24,7 @@ ResoniteIPv6Mod包括三个设置，可通过[ModSettings](https://github.com/st
 |`disableMod`    |`false`              |不要进行任何IPv6连接，而是退回到标准的 Resonite 网络。                                                        |
 
 
-# Thank You
+# 感谢
 
 * 此模组专用于因各种IPv4限制（包括严格类型 NAT 或 CGNAT（运营商级 NAT））而无法使用Resonite的用户。
 * 感谢 Resonite Modding 社区为该模组的开发提供的帮助。
