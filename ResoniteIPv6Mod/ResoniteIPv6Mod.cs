@@ -134,7 +134,6 @@ namespace ResoniteIPv6Mod
             }
 
             private static readonly PropertyInfo Peer = AccessTools.Property(typeof(LNL_Connection), "Peer");
-            private static readonly PropertyInfo FailReason = AccessTools.Property(typeof(LNL_Connection), "FailReason");
             private static readonly MethodInfo ConnectToRelay = AccessTools.Method(typeof(LNL_Connection), "ConnectToRelay", new Type[] { typeof(RelaySettings) });
 
             [HarmonyPrefix]
@@ -188,6 +187,7 @@ namespace ResoniteIPv6Mod
                         if (ipv6only)
                         {
                             Msg($"IPv6 Punchthrough failed. IPv4 fallback not enabled");
+                            __instance.Failed("World.Error.FailedToConnect");
                         }
                         else
                         {
@@ -220,7 +220,8 @@ namespace ResoniteIPv6Mod
                     }
                     else
                     {
-                        FailReason.SetValue(__instance, "World.Error.FailedToConnect");
+                        Msg($"IPv4 not enabled. IPv4 relay connection will not be attempted");
+                        __instance.Failed("World.Error.FailedToConnect");
                     }
                     return;
                 });
