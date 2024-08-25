@@ -10,8 +10,8 @@ ResoniteIPv6Mod包括三个设置，可通过[ModSettings](https://github.com/st
 
 ## 安装步骤
 
-1. 安装 [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader/releases)。
-1. 将 [ResoniteIPv6Mod.dll](https://github.com/bontebok/ResoniteIPv6Mod/releases) 放入你的`rml_mods`文件夹。默认安装时，该文件夹位于`C:\Program Files (x86)\Steam\steamapps\common\ResoniteVR\rml_mods`中。如果缺少该文件夹，你可以创建它，或者如果你安装了ResoniteModLoader后启动游戏，它会为你创建该文件夹。
+1. 安装[ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader/releases)。
+1. 将[ResoniteIPv6Mod.dll](https://github.com/bontebok/ResoniteIPv6Mod/releases) 放入你的`rml_mods`文件夹。默认安装时，该文件夹位于`C:\Program Files (x86)\Steam\steamapps\common\ResoniteVR\rml_mods`中。如果缺少该文件夹，你可以创建它，或者如果你安装了ResoniteModLoader后启动游戏，它会为你创建该文件夹。
 1. 启动游戏。如果想确认这个模组是否生效，你可以查看Resonite日志。
 
 
@@ -35,5 +35,5 @@ ResoniteIPv6Mod包括三个设置，可通过[ModSettings](https://github.com/st
 
 # Issues
 
-* 由于单个 NatPunchModule 在 IPv4 和 IPv6 中共享的特性，一些 IP 日志可能不正确，我希望在今后的版本中解决这个问题。
+* 由于单个NatPunchModule在IPv4和IPv6中共享的特性，一些IP日志可能不正确，我希望在今后的版本中解决这个问题。
 * 如果你发现任何问题，请使用上面的issue进行报告，以便得到解决。欢迎进行pull request！
