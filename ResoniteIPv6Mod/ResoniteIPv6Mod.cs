@@ -24,7 +24,7 @@ namespace ResoniteIPv6Mod
     {
         public const string Name = "ResoniteIPv6Mod";
         public const string Author = "Rucio";
-        public const string Version = "3.1.1";
+        public const string Version = "4.0.0";
         public const string Link = "https://github.com/bontebok/ResoniteIPv6Mod";
         public const string GUID = "com.ruciomods.resoniteipv6mod";
     }
@@ -60,6 +60,8 @@ namespace ResoniteIPv6Mod
             }
         }
 
+        // LNL NativeSockets is not used, commenting out for now unless this becomes a problem.
+        /*
         [HarmonyPatch(typeof(NetManager))]
         public class NetManagerPatch
         {
@@ -76,6 +78,7 @@ namespace ResoniteIPv6Mod
                 return true;
             }
         }
+        */
 
         [HarmonyPatch(typeof(LNL_Listener))]
         public class ResoniteIPv6ModPatch
@@ -132,8 +135,7 @@ namespace ResoniteIPv6Mod
 
             private static readonly PropertyInfo Peer = AccessTools.Property(typeof(LNL_Connection), "Peer");
             private static readonly PropertyInfo FailReason = AccessTools.Property(typeof(LNL_Connection), "FailReason");
-            private static readonly MethodInfo ConnectToRelay = AccessTools.Method(typeof(LNL_Connection), "ConnectToRelay");
-            private static bool? ForceRelay;
+            private static readonly MethodInfo ConnectToRelay = AccessTools.Method(typeof(LNL_Connection), "ConnectToRelay", new Type[] { typeof(RelaySettings) });
 
             [HarmonyPrefix]
             [HarmonyPatch(typeof(LNL_Connection), "PunchthroughConnect")]
@@ -153,42 +155,30 @@ namespace ResoniteIPv6Mod
 
                 __result = Task.Run(async () =>
                 {
+                    RelaySettings settings = await Settings.GetActiveSettingAsync<RelaySettings>();
                     await new ToBackground();
-
-                    if (!ForceRelay.HasValue)
-                    {
-                        ForceRelay = false;
-                        foreach (string commandLineArg in Environment.GetCommandLineArgs())
-                        {
-                            if (commandLineArg.ToLower().EndsWith("forcerelay"))
-                            {
-                                ForceRelay = true;
-                                break;
-                            }
-                        }
-                    }
 
                     List<NetworkNodeInfo> nodes = new List<NetworkNodeInfo>();
                     if (nodeId != null)
                     {
                         NetworkNodeInfo networkNodeInfo = await cloud.NetworkNodes.TryGetNodeWithRefetch(nodeId).ConfigureAwait(false);
                         if (networkNodeInfo == null)
-                            Msg($"Cannot find NAT Punchthrough node: {nodeId}");
+                            Msg($"Cannot find NAT Punchthrough node for connecting to {__instance.Address}: {nodeId}");
                         else
                             nodes.Add(networkNodeInfo);
                     }
                     else
                     {
-                        foreach (NetworkNodeInfo node in cloud.NetworkNodes.GetNodes(NetworkNodeType.LNL_NAT, 0))
+                        foreach (NetworkNodeInfo node in cloud.NetworkNodes.GetNodes(NetworkNodeType.LNL_NAT, 2, new NetworkNodePreference?(Engine.Config.NodePreference), Engine.Config.UniverseId))
                             nodes.Add(node);
                     }
 
-                    if (!ForceRelay.Value)
+                    if (!settings.AlwaysUseRelay.Value)
                     {
                         for (int i = 0; i < 5; ++i) // IPv6 first
                         {
                             statusCallback("World.Connection.LNL.NATPunchthrough".AsLocaleKey(null, "n", $"IPv6 {i}"));
-                            Msg($"IPv6 Punchthrough attempt: {i.ToString()}");
+                            Msg($"IPv6 Punchthrough attempt for {__instance.Address}: {i.ToString()}");
                             client.NatPunchModule.SendNatIntroduceRequest(MatchMakerEPv6, "C;" + connectionToken);
                             await Task.Delay(TimeSpan.FromSeconds(1.0));
 
@@ -197,18 +187,17 @@ namespace ResoniteIPv6Mod
                         }
                         if (ipv6only)
                         {
-                            Msg($"IPv6 Punchthrough failed");
+                            Msg($"IPv6 Punchthrough failed. IPv4 fallback not enabled");
                         }
                         else
                         {
                             Msg($"IPv6 Punchthrough failed, falling back to IPv4");
 
-                            for (int i = 0; i < 5; ++i)
+                            for (int i = 0; i < 5; ++i) // IPv4 next
                             {
                                 statusCallback("World.Connection.LNL.NATPunchthrough".AsLocaleKey(null, "n", $"IPv4 {i}"));
-                                Msg($"IPv4 Punchthrough attempt: {i.ToString()}");
+                                Msg($"IPv4 Punchthrough attempt for {__instance.Address}: {i.ToString()}");
 
-                                // new NetworkNode implementation for IPv4
                                 foreach (NetworkNodeInfo networkNodeInfo in nodes)
                                     client.NatPunchModule.SendNatIntroduceRequest(networkNodeInfo.Address, networkNodeInfo.Port, "C;" + connectionToken);
 
@@ -222,21 +211,18 @@ namespace ResoniteIPv6Mod
                             }
                         }
                     }
+
                     if (!ipv6only)
                     {
                         statusCallback("World.Connection.LNL.Relay".AsLocaleKey(null, true, null));
-                        Msg("IPv4 Punchthrough failed, Connecting to Relay");
-                        //AccessTools.MethodDelegate<Action>(ConnectToRelay, __instance).Invoke();
-                        ConnectToRelay.Invoke(__instance, new object[] { });
+                        Msg($"IPv4 Punchthrough failed for {__instance.Address}, Connecting to Relay");
+                        ConnectToRelay.Invoke(__instance, new object[] { settings });
                     }
                     else
                     {
-                        // Exausted all options, fail
                         FailReason.SetValue(__instance, "World.Error.FailedToConnect");
-                        ConnectionFailed?.Invoke(__instance);
                     }
                     return;
-
                 });
                 return false;
             }
