@@ -1,27 +1,27 @@
 # ResoniteIPv6Mod
-A [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader) mod for [Resonite](https://resonite.com/) to provide transparent IPv6 connectivity for sessions. The mod utilizes a third party IPv6 LNL Server to facilitate IPv6 UDP punch throughs. The mod should be transparent for all users and falls back to IPv4 after attempting an IPv6 punch through.
+一个用于[Resonite](https://resonite.com/)的[ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader) 模组，为会话提供透明的 IPv6 连接。该模组利用第三方 IPv6 LNL 服务器促进 IPv6 UDP 穿透。该模块对所有用户都是透明的，在尝试 IPv6 穿越后会退回到 IPv4。
 
-The ResoniteIPv6Mod includes three settings which utilize the [ModSettings](https://github.com/stiefeljackal/ResoniteModSettings) mod to allow them to be changed. The settings apply immediately but do not affect any current session connections, only those established through the punch through process.
+ResoniteIPv6Mod 包括三个设置，可通过 [ModSettings](https://github.com/stiefeljackal/ResoniteModSettings) 对模组进行更改。这些设置会立即生效，但不会影响任何当前会话连接，只会影响那些通过打通过程建立中的连接。
 
-In order for Resonite to use IPv6, both parties (host and client) need to have an IPv6 IP Address and have the mod installed. Without IPv6, this mod will not function correctly. If you are having trouble, first verify that you have an IPv6 IP Address, the following site will provide verification. [Test-IPv6.com](https://test-ipv6.com/). If you do not have an IPv6 IP Address, contact your Internet Service Provider for assistance.
+为了让 Resonite 使用 IPv6，双方（主机和客户端）都需要拥有 IPv6 IP 地址并安装该模块。如果没有 IPv6，该模组将无法正常运行。如果你遇到问题，请首先验证您是否拥有 IPv6 IP 地址，可以通过以下网站验证。[Test-IPv6.com](https://test-ipv6.com/). 如果你没有 IPv6 IP 地址，请联系你的互联网服务提供商寻求帮助。
 
-ResoniteIPv6Mod works on Windows and Linux clients, as well as Windows and Linux headless clients.
-
-
-## Installation
-
-1. Install [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader/releases).
-1. Place [ResoniteIPv6Mod.dll](https://github.com/bontebok/ResoniteIPv6Mod/releases) into your `rml_mods` folder. This folder should be at `C:\Program Files (x86)\Steam\steamapps\common\ResoniteVR\rml_mods` for a default install. You can create it if it's missing, or if you launch the game once with ResoniteModLoader installed it will create the folder for you.
-1. Start the game. If you want to verify that the mod is working you can check your Resonite logs.
+在Windows和 Linux 客户端上可以用，也同样适用于 Windows 和 Linux 服务器客户端。
 
 
-## Config Options
+## 安装步骤
 
-|Config Option   |Default              |Description                                                                                               |
+1. 安装 [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader/releases).
+1. 将 [ResoniteIPv6Mod.dll](https://github.com/bontebok/ResoniteIPv6Mod/releases) 放入你的 `rml_mods` 文件夹。默认安装时，该文件夹位于 `C:\Program Files (x86)\Steam\steamapps\common\ResoniteVR\rml_mods` 中。如果缺少该文件夹，你可以创建它，或者如果你安装了 ResoniteModLoader 后启动游戏，它会为你创建该文件夹。
+1. Start the game. If you want to verify that the mod is working you can check your Resonite logs.启动游戏。如果想确认这个模组是否生效，你可以查看Resonite日志。
+
+
+## 配置选项
+
+|配置选项        |默认                 |说明                                                                                                      |
 |----------------|---------------------|----------------------------------------------------------------------------------------------------------|
-|`ipv6LnlServer` |`lnl6.razortune.com` |The hostname of the IPv6 LNL Server used for performing IPv6 UDP punch through.                           |
-|`ipv6Only`      |`false`              |Only use IPv6 for punch through and ignore IPv4 entirely. Note, this will prevent LNL Relay connectivity. |
-|`disableMod`    |`false`              |Do not perform any IPv6 attempts and fallback to standard Resonite networking.                                |
+|`ipv6LnlServer` |`lnl6.razortune.com` |用于执行 IPv6 UDP 穿透的 IPv6 LNL 服务器的主机名。                                                           |
+|`ipv6Only`      |`false`              |仅使用IPv6进行穿透，完全忽略 IPv4。注意，这将阻止LNL中继连接。                                                 |
+|`disableMod`    |`false`              |不要进行任何IPv6连接，而是退回到标准的 Resonite 网络。                                                        |
 
 
 # Thank You
