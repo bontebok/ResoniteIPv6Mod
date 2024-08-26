@@ -13,7 +13,7 @@ ResoniteIPv6Mod works on Windows and Linux clients, as well as Windows and Linux
 ## Installation
 
 1. Install [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader/releases).
-1. Place [ResoniteIPv6Mod.dll](https://github.com/bontebok/ResoniteIPv6Mod/releases) into your `rml_mods` folder. This folder should be at `C:\Program Files (x86)\Steam\steamapps\common\ResoniteVR\rml_mods` for a default install. You can create it if it's missing, or if you launch the game once with ResoniteModLoader installed it will create the folder for you.
+1. Place [ResoniteIPv6Mod.dll](https://github.com/bontebok/ResoniteIPv6Mod/releases) into your `rml_mods` folder. This folder should be at `C:\Program Files (x86)\Steam\steamapps\common\Resonite\rml_mods` for a default install. You can create it if it's missing, or if you launch the game once with ResoniteModLoader installed it will create the folder for you.
 1. Start the game. If you want to verify that the mod is working you can check your Resonite logs.
 
 
