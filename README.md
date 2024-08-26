@@ -1,5 +1,5 @@
 # ResoniteIPv6Mod
-[Japanese Translation](https://github.com/bontebok/ResoniteIPv6Mod/blob/main/READMEjp.md) | [Korean Translation](https://github.com/bontebok/ResoniteIPv6Mod/blob/main/READMEkr.md) | [French Translation](https://github.com/bontebok/ResoniteIPv6Mod/blob/main/READMEfr.md)
+[Japanese Translation](https://github.com/bontebok/ResoniteIPv6Mod/blob/main/READMEjp.md) | [Korean Translation](https://github.com/bontebok/ResoniteIPv6Mod/blob/main/READMEkr.md) | [French Translation](https://github.com/bontebok/ResoniteIPv6Mod/blob/main/READMEfr.md) | [Chinese Translation](https://github.com/bontebok/ResoniteIPv6Mod/blob/main/READMEzh-cn.md)
 
 A [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader) mod for [Resonite](https://resonite.com/) to provide transparent IPv6 connectivity for sessions. The mod utilizes a third party IPv6 LNL Server to facilitate IPv6 UDP punch throughs. The mod should be transparent for all users and falls back to IPv4 after attempting an IPv6 punch through.
 
@@ -33,6 +33,7 @@ ResoniteIPv6Mod works on Windows and Linux clients, as well as Windows and Linux
 * Thanks to [Stiefel Jackal](https://github.com/stiefeljackal) for testing and code review.
 * Thanks to [litalita](https://github.com/litalita0) for providing the Japanese translation.
 * Thanks to [MirPASEC](https://github.com/mirpasec) for providing the Korean translation.
+* Thanks to [modimobeikete](https://github.com/modimobeikete) for providing the Chinese translation.
 
 
 # Issues
